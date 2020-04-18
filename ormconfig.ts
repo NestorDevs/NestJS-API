@@ -10,14 +10,14 @@ const {
 
 export = {
   database: DB_DATABASE,
-  entities: ["src/entities/*.ts"],
+  entities: ['src/entities/*.ts'],
   host: DB_HOST,
   logging: true,
-  migrations: ["src/migrations/*.ts"],
+  migrations: ['src/migrations/*.ts'],
   name: 'default',
   password: DB_PASSWORD,
   port: DB_PORT,
-  subscribers: ["src/**.module/*-subscriber.ts"],
+  subscribers: ['src/**.module/*-subscriber.ts'],
   synchronize: false,
   type: 'postgres',
   username: DB_USERNAME,
