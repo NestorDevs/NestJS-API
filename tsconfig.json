@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "lib": ["es2015"],
-    "types": ["reflect-metadata", "node"],
     "module": "commonjs",
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
     "sourceMap": true,
-    "declaration": false,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": false
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "dist"]
 }
