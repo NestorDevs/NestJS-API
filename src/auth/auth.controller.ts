@@ -14,7 +14,7 @@ export class AuthController {
   // eslint-disable-next-line no-useless-constructor
   constructor(private authService: AuthService) {}
 
-  @Post()
+  @Post('/register')
   register(@Body(ValidationPipe) credentials: RegisterDTO) {
     return this.authService.register(credentials);
   }
