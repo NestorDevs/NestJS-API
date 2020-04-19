@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 const {
   DB_DATABASE,
   DB_HOST,
@@ -21,4 +19,4 @@ export = {
   synchronize: false,
   type: 'postgres',
   username: DB_USERNAME,
-};
+}

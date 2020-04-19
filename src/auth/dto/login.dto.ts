@@ -8,10 +8,10 @@ import {
 export class LoginDTO {
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email!: string;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
-  password: string;
+  password!: string;
 }

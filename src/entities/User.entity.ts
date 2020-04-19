@@ -29,7 +29,7 @@ export class User extends Abstract {
   })
   @IsNotEmpty()
   @Length(1, 16)
-  username: string;
+  username!: string;
 
   @Column({
     unique: true,
@@ -39,16 +39,16 @@ export class User extends Abstract {
   @Matches(/^[^+]+@.*$/, {
     message: 'Cannot be an email alias',
   })
-  email: string;
+  email!: string;
 
   @Column({
     default: false,
   })
-  isEmailVerified: boolean;
+  isEmailVerified!: boolean;
 
   @Column()
   @Exclude()
-  password: string;
+  password!: string;
 
   @Column({
     nullable: true,
@@ -58,17 +58,17 @@ export class User extends Abstract {
   @Matches(/^[+][1-9][0-9]{1,15}$/, {
     message: 'Must be a valid number format, i.e. +48 100 200 300',
   })
-  phoneNumber: string;
+  phoneNumber!: string;
 
   @Column({
     default: false,
   })
-  isActive: boolean;
+  isActive!: boolean;
 
   @Column({
     default: false,
   })
-  isBlocked: boolean;
+  isBlocked!: boolean;
 
   @Column({
     default: undefined,

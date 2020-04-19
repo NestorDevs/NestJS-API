@@ -1,30 +1,59 @@
+/* eslint-disable no-empty-function */
 import {
+  ConflictException,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '../entities/User.entity';
 import { LoginDTO } from './dto/login.dto';
 import { RegisterDTO } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
-  private mockUser = {
-    bio: 'JS developer',
-    email: 'kontakt@egocentryk.pl',
-    id: 1,
-    image: null,
-    username: 'egocentryk',
-  }
+  // eslint-disable-next-line no-useless-constructor
+  constructor(
+    @InjectRepository(User) private user:Repository<User>
+  ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  register(credentials: RegisterDTO) {
-    return this.mockUser;
+  async register(credentials: RegisterDTO) {
+    try {
+      const user = this.user.create(credentials);
+
+      await user.save();
+
+      return user;
+    } catch (err) {
+      if (err.code === '23505') {
+        throw new ConflictException('Username has already been taken');
+      }
+
+      throw new InternalServerErrorException();
+    }
   }
 
-  login(credentials: LoginDTO) {
-    if (credentials.email === this.mockUser.email) {
-      return this.mockUser;
-    }
+  async login({
+    email,
+    password,
+  }: LoginDTO) {
+    try {
+      const user = await this.user.findOne({
+        where: {
+          email,
+          password,
+        },
+      });
 
-    throw new InternalServerErrorException();
+      if (user && user.compare(password)) {
+        return user;
+      }
+
+      throw new UnauthorizedException('Invalid credentials');
+    } catch (err) {
+      throw new InternalServerErrorException();
+    }
   }
 }

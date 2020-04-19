@@ -9,5 +9,5 @@ export class RegisterDTO extends LoginDTO {
   @IsString()
   @MinLength(4)
   @MaxLength(16)
-  username: string;
+  username!: string;
 }
