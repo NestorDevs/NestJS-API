@@ -1,10 +1,7 @@
 import {
   BeforeInsert,
   Column,
-  CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 import {
@@ -15,12 +12,10 @@ import {
 } from 'class-validator';
 
 import * as bcrypt from 'bcrypt';
+import { Abstract } from './Abstract.entity';
 
 @Entity({ name: 'users' })
-export class UserModel {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends Abstract {
   @Column({
     unique: true,
   })
@@ -94,14 +89,6 @@ export class UserModel {
     type: 'timestamp with time zone',
   })
   requestEmailChangeTokenExpire: Date | undefined;
-
-  @Column()
-  @CreateDateColumn()
-  createdAt!: Date;
-
-  @Column()
-  @UpdateDateColumn()
-  updatedAt!: Date;
 
   @BeforeInsert()
   toLowerCase(): void {
