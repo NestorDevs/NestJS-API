@@ -2,6 +2,8 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { LoginDTO } from './dto/login.dto';
+import { RegisterDTO } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,11 +15,12 @@ export class AuthService {
     username: 'egocentryk',
   }
 
-  register() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  register(credentials: RegisterDTO) {
     return this.mockUser;
   }
 
-  login(credentials: any) {
+  login(credentials: LoginDTO) {
     if (credentials.email === this.mockUser.email) {
       return this.mockUser;
     }

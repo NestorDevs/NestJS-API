@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDTO } from './dto/register.dto';
@@ -14,13 +15,12 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  register(@Body() credentials: RegisterDTO) {
-    return this.authService.register();
+  register(@Body(ValidationPipe) credentials: RegisterDTO) {
+    return this.authService.register(credentials);
   }
 
   @Post('/login')
-  login(@Body() credentials: LoginDTO) {
+  login(@Body(ValidationPipe) credentials: LoginDTO) {
     return this.authService.login(credentials);
   }
 }
