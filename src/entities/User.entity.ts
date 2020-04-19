@@ -101,6 +101,7 @@ export class User extends Abstract {
     this.email = this.email.toLowerCase();
   }
 
+  @BeforeInsert()
   hash(): void {
     this.password = bcrypt.hashSync(this.password, 8);
   }
