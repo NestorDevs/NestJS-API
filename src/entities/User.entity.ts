@@ -5,6 +5,11 @@ import {
 } from 'typeorm';
 
 import {
+  classToPlain,
+  Exclude,
+} from 'class-transformer';
+
+import {
   IsEmail,
   IsNotEmpty,
   Length,
@@ -42,6 +47,7 @@ export class User extends Abstract {
   isEmailVerified: boolean;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column({
@@ -101,5 +107,9 @@ export class User extends Abstract {
 
   compare(unencryptedPassword: string): boolean {
     return bcrypt.compareSync(unencryptedPassword, this.password);
+  }
+
+  toJSON() {
+    return classToPlain(this);
   }
 }
