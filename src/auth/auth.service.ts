@@ -43,17 +43,18 @@ export class AuthService {
       const user = await this.user.findOne({
         where: {
           email,
-          password,
         },
       });
 
-      if (user && user.compare(password)) {
-        return user;
+      const isValid = user.compare(password);
+
+      if (user && !isValid) {
+        throw new UnauthorizedException('Invalid credentials');
       }
 
-      throw new UnauthorizedException('Invalid credentials');
+      return user;
     } catch (err) {
-      throw new InternalServerErrorException();
+      throw new UnauthorizedException('Invalid credentials');
     }
   }
 }
