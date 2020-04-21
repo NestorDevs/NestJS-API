@@ -35,7 +35,12 @@ export class UserController {
       search,
       sort,
       order
-    ).then((users) => res.status(200).json(users));
+    ).then((users) => res.status(200).json({
+      data: {
+        ...users,
+      },
+      status: true,
+    }));
   }
 
   @Get('/:username')
