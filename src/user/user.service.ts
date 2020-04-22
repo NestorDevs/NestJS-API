@@ -75,4 +75,13 @@ export class UserService {
     ])
     .where('user.username = :username', { username })
     .getOne();
+
+  deleteUser = (
+    id: string
+  ) => getRepository(User)
+    .createQueryBuilder('user')
+    .delete()
+    .from(User)
+    .where('id = :id', { id })
+    .execute();
 }

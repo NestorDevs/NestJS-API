@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-constructor */
 import {
   Controller,
+  Delete,
   Get,
   Param,
   Query,
@@ -46,5 +47,10 @@ export class UserController {
   @Get('/:username')
   async getByUsername(@Param('username') username): Promise<User> {
     return this.userService.getByUsername(username);
+  }
+
+  @Delete('/:id')
+  async deleteUser(@Param('id') id) {
+    return this.userService.deleteUser(id);
   }
 }
