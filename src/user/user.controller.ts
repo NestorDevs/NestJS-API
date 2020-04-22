@@ -14,6 +14,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
+import { QueryDTO } from './dto/query.dto';
 
 export enum Order {
   ASC = 'ASC',
@@ -28,19 +29,15 @@ export class UserController {
   @ApiOkResponse({ description: 'List all users' })
   @Get('')
   async getUsersList(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
-    @Query('search') search: string = '',
-    @Query('sort') sort: string = 'id',
-    @Query('order') order: Order.DESC,
+    @Query() query: QueryDTO,
     @Res() res: Response
   ) {
     return this.userService.getUsersList(
-      page,
-      limit,
-      search,
-      sort,
-      order
+      query.page,
+      query.limit,
+      query.search,
+      query.sort,
+      query.order
     ).then((users) => res.status(200).json({
       data: {
         ...users,

@@ -1,23 +1,20 @@
-import { ApiProperty } from '@nestjs/swagger';
-
-export enum Order {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
+import {
+  IsOptional,
+} from 'class-validator';
 
 export class QueryDTO {
-  @ApiProperty()
-  page: number = 1;
+  @IsOptional()
+  page!: number;
 
-  @ApiProperty()
-  limit: number = 10;
+  @IsOptional()
+  limit!: number;
 
-  @ApiProperty()
-  search: string = '';
+  @IsOptional()
+  search: string;
 
-  @ApiProperty()
-  sort: string = 'id';
+  @IsOptional()
+  sort: any;
 
-  @ApiProperty()
-  order: Order.DESC
+  @IsOptional()
+  order: any
 }

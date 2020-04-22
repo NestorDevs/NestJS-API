@@ -22,8 +22,8 @@ export class UserService {
   getUsersList = async (
     page = 1,
     limit = 10,
-    search: string,
-    sort,
+    search = '',
+    sort = 'id',
     order = Order.DESC
   ): Promise<UsersList> => {
     const offset = (page - 1) * limit;
