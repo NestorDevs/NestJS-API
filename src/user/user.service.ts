@@ -62,7 +62,7 @@ export class UserService {
 
   getByUsername = (
     username: string
-  ) => getRepository(User)
+  ): Promise<User> => getRepository(User)
     .createQueryBuilder('user')
     .select([
       'user.id',
@@ -82,6 +82,18 @@ export class UserService {
     .createQueryBuilder('user')
     .delete()
     .from(User)
+    .where('id = :id', { id })
+    .execute();
+
+  updateUser = (
+    id: string,
+    email: string
+  ) => getRepository(User)
+    .createQueryBuilder('user')
+    .update(User)
+    .set({
+      email,
+    })
     .where('id = :id', { id })
     .execute();
 }
