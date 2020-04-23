@@ -96,4 +96,12 @@ export class UserService {
     })
     .where('id = :id', { id })
     .execute();
+
+  isUserBlocked = (
+    id: string
+  ) => getRepository(User)
+    .createQueryBuilder('user')
+    .select(['user.isBlocked'])
+    .where('id = :id', { id })
+    .execute()
 }
