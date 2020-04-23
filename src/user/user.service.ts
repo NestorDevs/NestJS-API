@@ -5,7 +5,10 @@ import {
   getRepository,
   Repository,
 } from 'typeorm';
-import { User } from '../entities/User.entity';
+import {
+  User,
+  UserStatus,
+} from '../entities/User.entity';
 import { UsersList } from './user.interface';
 import Helpers from '../utils/helpers';
 
@@ -115,6 +118,20 @@ export class UserService {
       .update(User)
       .set({
         isBlocked: true,
+      })
+      .where('id = :id', { id })
+      .execute();
+  }
+
+  setUserStatus = async (
+    id: string,
+    status: UserStatus
+  ) => {
+    await getRepository(User)
+      .createQueryBuilder('user')
+      .update(User)
+      .set({
+        status,
       })
       .where('id = :id', { id })
       .execute();
