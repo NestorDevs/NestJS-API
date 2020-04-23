@@ -108,4 +108,17 @@ export class UserService {
 
     return user.isBlocked;
   }
+
+  blockUser = async (
+    id: string
+  ) => {
+    await getRepository(User)
+      .createQueryBuilder('user')
+      .update(User)
+      .set({
+        isBlocked: true,
+      })
+      .where('id = :id', { id })
+      .execute();
+  }
 }
