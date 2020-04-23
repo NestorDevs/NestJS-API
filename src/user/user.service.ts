@@ -97,11 +97,15 @@ export class UserService {
     .where('id = :id', { id })
     .execute();
 
-  isUserBlocked = (
+  isUserBlocked = async (
     id: string
-  ) => getRepository(User)
-    .createQueryBuilder('user')
-    .select(['user.isBlocked'])
-    .where('id = :id', { id })
-    .execute()
+  ) => {
+    const user: User = await getRepository(User)
+      .createQueryBuilder('user')
+      .select(['user.isBlocked'])
+      .where('id = :id', { id })
+      .execute();
+
+    return user.isBlocked;
+  }
 }
