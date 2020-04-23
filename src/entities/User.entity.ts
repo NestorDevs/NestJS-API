@@ -19,6 +19,18 @@ import {
 import * as bcrypt from 'bcrypt';
 import { Abstract } from './Abstract.entity';
 
+export enum UserRole {
+  ADMIN = 'admin',
+  AUTHOR = 'author',
+  USER = 'user'
+}
+
+export enum UserStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  PENDING = 'pending'
+}
+
 @Entity({ name: 'users' })
 export class User extends Abstract {
   @Column({
@@ -52,6 +64,16 @@ export class User extends Abstract {
 
   @Column({
     nullable: true,
+  })
+  firstName!: string;
+
+  @Column({
+    nullable: true,
+  })
+  lastName!: string;
+
+  @Column({
+    nullable: true,
     unique: true,
   })
   @IsNotEmpty()
@@ -61,40 +83,23 @@ export class User extends Abstract {
   phoneNumber!: string;
 
   @Column({
-    default: false,
+    default: UserRole.USER,
+    enum: UserRole,
+    type: 'enum',
   })
-  isActive!: boolean;
+  role!: UserRole;
+
+  @Column({
+    default: UserStatus.INACTIVE,
+    enum: UserStatus,
+    type: 'enum',
+  })
+  status!: UserStatus;
 
   @Column({
     default: false,
   })
   isBlocked!: boolean;
-
-  @Column({
-    default: undefined,
-    nullable: true,
-  })
-  resetPasswordToken: string | undefined;
-
-  @Column({
-    default: undefined,
-    nullable: true,
-    type: 'timestamp with time zone',
-  })
-  resetPasswordTokenExpire: Date | undefined;
-
-  @Column({
-    default: undefined,
-    nullable: true,
-  })
-  requestEmailChangeToken: string | undefined;
-
-  @Column({
-    default: undefined,
-    nullable: true,
-    type: 'timestamp with time zone',
-  })
-  requestEmailChangeTokenExpire: Date | undefined;
 
   @BeforeInsert()
   toLowerCase(): void {
