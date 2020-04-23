@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import {
   User,
+  UserRole,
   UserStatus,
 } from '../entities/User.entity';
 import { UsersList } from './user.interface';
@@ -132,6 +133,20 @@ export class UserService {
       .update(User)
       .set({
         status,
+      })
+      .where('id = :id', { id })
+      .execute();
+  }
+
+  setUserRole = async (
+    id: string,
+    role: UserRole
+  ) => {
+    await getRepository(User)
+      .createQueryBuilder('user')
+      .update(User)
+      .set({
+        role,
       })
       .where('id = :id', { id })
       .execute();
