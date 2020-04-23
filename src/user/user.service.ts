@@ -89,12 +89,16 @@ export class UserService {
 
   updateUser = (
     id: string,
-    email: string
+    email: string,
+    firstName: string,
+    lastName: string
   ) => getRepository(User)
     .createQueryBuilder('user')
     .update(User)
     .set({
       email,
+      firstName,
+      lastName,
     })
     .where('id = :id', { id })
     .execute();
