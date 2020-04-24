@@ -9,9 +9,9 @@ import {
   User,
   UserRole,
   UserStatus,
-} from '../entities/User.entity';
+} from '../../entities/User.entity';
 import { UsersList } from './user.interface';
-import Helpers from '../utils/helpers';
+import Helpers from '../../utils/helpers';
 
 export enum Order {
   ASC = 'ASC',
