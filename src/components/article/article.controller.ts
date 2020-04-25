@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   Res,
@@ -17,6 +18,7 @@ import {
 import { ArticleService } from './article.service';
 import { CreateDTO } from './dto/create.dto';
 import { ListDTO } from './dto/list.dto';
+import { UpdateDTO } from './dto/update.dto';
 
 @Controller('articles')
 export class ArticleController {
@@ -51,5 +53,17 @@ export class ArticleController {
   @Delete('/:id')
   async deleteArticle(@Param('id') id) {
     return this.articleService.deleteArticle(id);
+  }
+
+  @Patch('/:id')
+  async updateArticle(
+    @Body() body: UpdateDTO,
+    @Param('id') id
+  ) {
+    return this.articleService.updateArticle(
+      id,
+      body.content,
+      body.title
+    );
   }
 }

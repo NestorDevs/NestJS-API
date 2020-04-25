@@ -96,4 +96,18 @@ export class ArticleService {
     .from(Article)
     .where('id = :id', { id })
     .execute();
+
+  updateArticle = (
+    id: string,
+    title: string,
+    content: string
+  ) => getRepository(Article)
+    .createQueryBuilder('article')
+    .update(Article)
+    .set({
+      content,
+      title,
+    })
+    .where('id = :id', { id })
+    .execute();
 }
