@@ -87,4 +87,13 @@ export class ArticleService {
       throw new InternalServerErrorException();
     }
   }
+
+  deleteArticle = (
+    id: string
+  ) => getRepository(Article)
+    .createQueryBuilder('article')
+    .delete()
+    .from(Article)
+    .where('id = :id', { id })
+    .execute();
 }

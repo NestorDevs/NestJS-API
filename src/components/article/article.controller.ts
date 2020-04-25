@@ -2,7 +2,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Query,
   Res,
@@ -44,5 +46,10 @@ export class ArticleController {
   @Post()
   create(@Body(ValidationPipe) articleDto: CreateDTO) {
     return this.articleService.create(articleDto);
+  }
+
+  @Delete('/:id')
+  async deleteArticle(@Param('id') id) {
+    return this.articleService.deleteArticle(id);
   }
 }
