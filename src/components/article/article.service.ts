@@ -15,7 +15,9 @@ export class ArticleService {
     @InjectRepository(Article) private article:Repository<Article>
   ) {}
 
-  async create(articleDto: CreateDTO) {
+  create = async (
+    articleDto: CreateDTO
+  ): Promise<Article> => {
     try {
       const article = this.article.create(articleDto);
 
