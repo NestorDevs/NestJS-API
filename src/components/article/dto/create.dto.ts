@@ -12,5 +12,5 @@ export class CreateDTO {
   content!: string;
 
   @IsNotEmpty()
-  author!: number;
+  author!: string;
 }
