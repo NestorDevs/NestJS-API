@@ -4,9 +4,19 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {
+  getRepository,
+  Repository,
+} from 'typeorm';
 import { Article } from '../../entities/Article.entity';
 import { CreateDTO } from './dto/create.dto';
+import { ArticlesList } from './article.interface';
+import Helpers from '../../utils/helpers';
+
+export enum Order {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
 
 @Injectable()
 export class ArticleService {
@@ -14,6 +24,46 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article) private article:Repository<Article>
   ) {}
+
+  getArticlesList = async (
+    page = 1,
+    limit = 10,
+    search = '',
+    sort = 'id',
+    order = Order.DESC
+  ): Promise<ArticlesList> => {
+    const offset = (page - 1) * limit;
+
+    const articlesCount = await getRepository(Article)
+      .createQueryBuilder('article')
+      .where('LOWER(article.title) LIKE :search', { search: `%${search}%` })
+      .getCount();
+
+    const articlesList = await getRepository(Article)
+      .createQueryBuilder('article')
+      .select([
+        'article.id',
+        'article.title',
+        'article.slug',
+        'article.content',
+        'article.createdAt',
+        'article.updatedAt',
+      ])
+      .where('LOWER(article.title) LIKE :search', { search: `%${search}%` })
+      .skip(offset)
+      .take(limit)
+      .orderBy(`article.${sort}`, order)
+      .getMany();
+
+    const pages = Helpers.calculatePages(articlesCount, limit);
+
+    return {
+      list: articlesList,
+      page,
+      pages,
+      totalCount: articlesCount,
+    };
+  }
 
   create = async (
     articleDto: CreateDTO
