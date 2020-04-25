@@ -2,7 +2,7 @@ import {
   IsOptional,
 } from 'class-validator';
 
-export class QueryDTO {
+export class ListDTO {
   @IsOptional()
   page!: number;
 
