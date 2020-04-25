@@ -49,6 +49,15 @@ export class ArticleService {
         'article.createdAt',
         'article.updatedAt',
       ])
+      .leftJoin('article.author', 'user')
+      .addSelect([
+        'user.id',
+        'user.username',
+        'user.email',
+        'user.firstName',
+        'user.lastName',
+        'user.role',
+      ])
       .where('LOWER(article.title) LIKE :search', { search: `%${search}%` })
       .skip(offset)
       .take(limit)
