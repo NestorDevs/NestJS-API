@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 import {
@@ -15,7 +16,8 @@ import {
 import slugify from '../helpers/slugify';
 
 import { Abstract } from './Abstract.entity';
-import { User } from '../entities/User.entity';
+import { User } from './User.entity';
+import { Comment } from './Comment.entity';
 
 @Entity({ name: 'articles' })
 export class Article extends Abstract {
@@ -36,6 +38,9 @@ export class Article extends Abstract {
 
   @ManyToOne(() => User)
   author!: User;
+
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments!: Comment[]
 
   @BeforeInsert()
   convertSlug(): void {
