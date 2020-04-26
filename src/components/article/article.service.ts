@@ -74,6 +74,21 @@ export class ArticleService {
     };
   }
 
+  getById = (
+    id: string
+  ): Promise<Article> => getRepository(Article)
+    .createQueryBuilder('article')
+    .select([
+      'article.id',
+      'article.title',
+      'article.slug',
+      'article.content',
+      'article.createdAt',
+      'article.updatedAt',
+    ])
+    .where('article.id = :id', { id })
+    .getOne();
+
   create = async (
     articleDto: CreateDTO
   ): Promise<Article> => {

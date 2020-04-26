@@ -45,6 +45,21 @@ export class ArticleController {
     }));
   }
 
+  @Get('/:id')
+  async getById(
+    @Param('id') id,
+    @Res() res: Response
+  ) {
+    return this.articleService.getById(
+      id
+    ).then((article) => res.status(200).json({
+      data: {
+        ...article,
+      },
+      status: true,
+    }));
+  }
+
   @Post()
   create(@Body(ValidationPipe) articleDto: CreateDTO) {
     return this.articleService.create(articleDto);
