@@ -12,6 +12,7 @@ import {
 import {
   IsNotEmpty,
 } from 'class-validator';
+import slugify from '../helpers/slugify';
 
 import { Abstract } from './Abstract.entity';
 import { User } from '../entities/User.entity';
@@ -37,13 +38,8 @@ export class Article extends Abstract {
   author!: User;
 
   @BeforeInsert()
-  slugify(): void {
-    this.slug = this.title.toString().toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w-]+/g, '')
-      .replace(/--+/g, '-')
-      .replace(/^-+/, '')
-      .replace(/-+$/, '');
+  convertSlug(): void {
+    this.slug = slugify(this.title);
   }
 
   toJSON() {
