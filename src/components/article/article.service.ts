@@ -58,6 +58,19 @@ export class ArticleService {
         'user.lastName',
         'user.role',
       ])
+      .leftJoin('article.comments', 'comment')
+      .addSelect([
+        'comment.id',
+        'comment.content',
+        'comment.createdAt',
+        'comment.updatedAt',
+      ])
+      .leftJoin('comment.author', 'author')
+      .addSelect([
+        'author.id',
+        'author.username',
+        'author.email',
+      ])
       .where('LOWER(article.title) LIKE :search', { search: `%${search}%` })
       .skip(offset)
       .take(limit)
