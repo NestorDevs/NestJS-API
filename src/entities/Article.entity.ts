@@ -2,6 +2,8 @@ import {
   BeforeInsert,
   Column,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
 } from 'typeorm';
@@ -19,6 +21,7 @@ import { Abstract } from './Abstract.entity';
 import { User } from './User.entity';
 import { Comment } from './Comment.entity';
 import { Photo } from './Photo.entity';
+import { Tag } from './Tag.entity';
 
 @Entity({ name: 'articles' })
 export class Article extends Abstract {
@@ -41,10 +44,14 @@ export class Article extends Abstract {
   author!: User;
 
   @OneToMany(() => Comment, (comment) => comment.article)
-  comments!: Comment[]
+  comments!: Comment[];
 
   @OneToMany(() => Photo, (photo) => photo.article)
-  photos!: Photo[]
+  photos!: Photo[];
+
+  @ManyToMany(() => Tag)
+  @JoinTable()
+  tags!: Tag[];
 
   @BeforeInsert()
   convertSlug(): void {
