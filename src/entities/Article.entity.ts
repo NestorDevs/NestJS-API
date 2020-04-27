@@ -18,6 +18,7 @@ import slugify from '../helpers/slugify';
 import { Abstract } from './Abstract.entity';
 import { User } from './User.entity';
 import { Comment } from './Comment.entity';
+import { Photo } from './Photo.entity';
 
 @Entity({ name: 'articles' })
 export class Article extends Abstract {
@@ -41,6 +42,9 @@ export class Article extends Abstract {
 
   @OneToMany(() => Comment, (comment) => comment.article)
   comments!: Comment[]
+
+  @OneToMany(() => Photo, (photo) => photo.article)
+  photos!: Photo[]
 
   @BeforeInsert()
   convertSlug(): void {
