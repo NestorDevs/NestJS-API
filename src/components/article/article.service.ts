@@ -78,6 +78,12 @@ export class ArticleService {
         'photo.filename',
         'photo.createdAt',
       ])
+      .leftJoin('article.tags', 'tag')
+      .addSelect([
+        'tag.id',
+        'tag.createdAt',
+        'tag.title',
+      ])
       .where('LOWER(article.title) LIKE :search', { search: `%${search}%` })
       .skip(offset)
       .take(limit)
