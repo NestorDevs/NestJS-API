@@ -71,10 +71,18 @@ export class ArticleService {
         'author.username',
         'author.email',
       ])
+      .leftJoin('article.photos', 'photo')
+      .addSelect([
+        'photo.id',
+        'photo.title',
+        'photo.filename',
+        'photo.createdAt',
+      ])
       .where('LOWER(article.title) LIKE :search', { search: `%${search}%` })
       .skip(offset)
       .take(limit)
       .orderBy(`article.${sort}`, order)
+      .addOrderBy('photo.id', 'DESC')
       .getMany();
 
     const pages = Helpers.calculatePages(articlesCount, limit);
