@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../entities/User.entity';
@@ -15,7 +16,8 @@ import { RegisterDTO } from './dto/register.dto';
 export class AuthService {
   // eslint-disable-next-line no-useless-constructor
   constructor(
-    @InjectRepository(User) private user:Repository<User>
+    @InjectRepository(User) private user:Repository<User>,
+    private jwtService: JwtService
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,7 +27,17 @@ export class AuthService {
 
       await user.save();
 
-      return user;
+      const payload = {
+        username: user.username,
+      };
+      const token = this.jwtService.sign(payload);
+
+      return {
+        user: {
+          ...user.toJSON(),
+          token,
+        },
+      };
     } catch (err) {
       if (err.code === '23505') {
         throw new ConflictException('Username has already been taken');
@@ -48,11 +60,22 @@ export class AuthService {
 
       const isValid = user.compare(password);
 
-      if (user && !isValid) {
+      if (!isValid) {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      return user;
+      const payload = {
+        username: user.username,
+      };
+      const token = this.jwtService.sign(payload);
+
+      return {
+        user: {
+          ...user.toJSON(),
+          message: 'You have successfully logged in!',
+          token,
+        },
+      };
     } catch (err) {
       throw new UnauthorizedException('Invalid credentials');
     }
