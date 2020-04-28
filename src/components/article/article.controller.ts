@@ -9,12 +9,14 @@ import {
   Post,
   Query,
   Res,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import {
   ApiOkResponse,
 } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { ArticleService } from './article.service';
 import { CreateDTO } from './dto/create.dto';
 import { ListDTO } from './dto/list.dto';
@@ -61,6 +63,7 @@ export class ArticleController {
   }
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   create(@Body(ValidationPipe) articleDto: CreateDTO) {
     return this.articleService.create(articleDto);
   }
