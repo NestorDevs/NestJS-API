@@ -16,6 +16,20 @@ import { CreateDTO } from './dto/create.dto';
 export class CommentService {
   // eslint-disable-next-line no-useless-constructor
   constructor(
-    @InjectRepository(Comment) private article:Repository<Comment>
+    @InjectRepository(Comment) private comment:Repository<Comment>
   ) {}
+
+  addComment = async (
+    commentDto: CreateDTO
+  ): Promise<Comment> => {
+    try {
+      const comment = this.comment.create(commentDto);
+
+      await comment.save();
+
+      return comment;
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
 }

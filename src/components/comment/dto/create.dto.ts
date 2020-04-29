@@ -7,8 +7,8 @@ export class CreateDTO {
   content!: string;
 
   @IsNotEmpty()
-  author!: string;
+  author!: number | any;
 
   @IsNotEmpty()
-  article!: string;
+  article!: number | any;
 }

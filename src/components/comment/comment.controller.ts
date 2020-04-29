@@ -25,4 +25,9 @@ import { CreateDTO } from './dto/create.dto';
 export class CommentController {
   // eslint-disable-next-line no-useless-constructor
   constructor(private commentService: CommentService) {}
+
+  @Post()
+  create(@Body(ValidationPipe) commentDto: CreateDTO) {
+    return this.commentService.addComment(commentDto);
+  }
 }

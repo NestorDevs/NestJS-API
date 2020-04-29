@@ -88,7 +88,8 @@ export class ArticleService {
       .skip(offset)
       .take(limit)
       .orderBy(`article.${sort}`, order)
-      .addOrderBy('photo.id', 'DESC')
+      .addOrderBy('comment.id', 'ASC')
+      .addOrderBy('photo.id', 'ASC')
       .getMany();
 
     const pages = Helpers.calculatePages(articlesCount, limit);
