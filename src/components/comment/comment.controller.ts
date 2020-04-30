@@ -30,4 +30,9 @@ export class CommentController {
   create(@Body(ValidationPipe) commentDto: CreateDTO) {
     return this.commentService.addComment(commentDto);
   }
+
+  @Delete('/:id')
+  async deleteComment(@Param('id') id) {
+    return this.commentService.deleteComment(id);
+  }
 }

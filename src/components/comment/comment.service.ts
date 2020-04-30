@@ -32,4 +32,13 @@ export class CommentService {
       throw new InternalServerErrorException();
     }
   }
+
+  deleteComment = async (
+    id: number
+  ) => getRepository(Comment)
+    .createQueryBuilder('comment')
+    .delete()
+    .from(Comment)
+    .where('id = :id', { id })
+    .execute();
 }
