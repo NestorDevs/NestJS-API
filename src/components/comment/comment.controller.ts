@@ -20,6 +20,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { CommentService } from './comment.service';
 import { CreateDTO } from './dto/create.dto';
+import { UpdateCommentDTO } from './dto/updadeComment.dto';
 
 @Controller('comments')
 export class CommentController {
@@ -34,5 +35,16 @@ export class CommentController {
   @Delete('/:id')
   async deleteComment(@Param('id') id) {
     return this.commentService.deleteComment(id);
+  }
+
+  @Patch('/:id')
+  async updateComment(
+    @Body() body: UpdateCommentDTO,
+    @Param('id') id
+  ) {
+    return this.commentService.updateComment(
+      id,
+      body.content
+    );
   }
 }
