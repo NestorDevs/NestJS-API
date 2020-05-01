@@ -20,7 +20,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { CommentService } from './comment.service';
 import { CreateCommentDTO } from './dto/createComment.dto';
-import { UpdateCommentDTO } from './dto/updateComment.dto';
+import { UpdateCommentDTO } from './dto/updadeComment.dto';
 
 @Controller('comments')
 export class CommentController {
