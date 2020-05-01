@@ -41,4 +41,14 @@ export class CommentService {
     .from(Comment)
     .where('id = :id', { id })
     .execute();
+
+  updateComment = async (
+    id: number,
+    content: string
+  ) => getRepository(Comment)
+    .createQueryBuilder('comment')
+    .update(Comment)
+    .set({ content })
+    .where('id = :id', { id })
+    .execute();
 }
