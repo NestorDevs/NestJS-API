@@ -10,7 +10,7 @@ import {
   Repository,
 } from 'typeorm';
 import { Comment } from '../../entities/Comment.entity';
-import { CreateDTO } from './dto/create.dto';
+import { CreateCommentDTO } from './dto/createComment.dto';
 
 @Injectable()
 export class CommentService {
@@ -20,7 +20,7 @@ export class CommentService {
   ) {}
 
   addComment = async (
-    commentDto: CreateDTO
+    commentDto: CreateCommentDTO
   ): Promise<Comment> => {
     try {
       const comment = this.comment.create(commentDto);

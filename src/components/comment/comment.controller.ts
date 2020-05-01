@@ -19,7 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { CommentService } from './comment.service';
-import { CreateDTO } from './dto/create.dto';
+import { CreateCommentDTO } from './dto/createComment.dto';
 import { UpdateCommentDTO } from './dto/updadeComment.dto';
 
 @Controller('comments')
@@ -28,7 +28,7 @@ export class CommentController {
   constructor(private commentService: CommentService) {}
 
   @Post()
-  create(@Body(ValidationPipe) commentDto: CreateDTO) {
+  create(@Body(ValidationPipe) commentDto: CreateCommentDTO) {
     return this.commentService.addComment(commentDto);
   }
 

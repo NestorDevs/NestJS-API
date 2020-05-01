@@ -3,7 +3,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateDTO {
+export class CreateCommentDTO {
   @ApiProperty()
   @IsNotEmpty()
   content!: string;
