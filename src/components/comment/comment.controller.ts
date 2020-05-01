@@ -19,7 +19,8 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { CommentService } from './comment.service';
-import { CreateDTO } from './dto/create.dto';
+import { CreateCommentDTO } from './dto/createComment.dto';
+import { UpdateCommentDTO } from './dto/updadeComment.dto';
 
 @Controller('comments')
 export class CommentController {
@@ -27,12 +28,23 @@ export class CommentController {
   constructor(private commentService: CommentService) {}
 
   @Post()
-  create(@Body(ValidationPipe) commentDto: CreateDTO) {
+  create(@Body(ValidationPipe) commentDto: CreateCommentDTO) {
     return this.commentService.addComment(commentDto);
   }
 
   @Delete('/:id')
   async deleteComment(@Param('id') id) {
     return this.commentService.deleteComment(id);
+  }
+
+  @Patch('/:id')
+  async updateComment(
+    @Body() body: UpdateCommentDTO,
+    @Param('id') id
+  ) {
+    return this.commentService.updateComment(
+      id,
+      body.content
+    );
   }
 }
