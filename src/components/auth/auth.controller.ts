@@ -5,10 +5,14 @@ import {
   Post,
   ValidationPipe,
 } from '@nestjs/common';
+import {
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { RegisterDTO } from './dto/register.dto';
 import { LoginDTO } from './dto/login.dto';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   // eslint-disable-next-line no-useless-constructor

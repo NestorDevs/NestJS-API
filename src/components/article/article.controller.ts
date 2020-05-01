@@ -15,6 +15,7 @@ import {
 import { Response } from 'express';
 import {
   ApiOkResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { ArticleService } from './article.service';
@@ -22,6 +23,7 @@ import { CreateDTO } from './dto/create.dto';
 import { ListDTO } from './dto/list.dto';
 import { UpdateDTO } from './dto/update.dto';
 
+@ApiTags('articles')
 @Controller('articles')
 export class ArticleController {
   // eslint-disable-next-line no-useless-constructor

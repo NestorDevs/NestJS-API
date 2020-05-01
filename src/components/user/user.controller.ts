@@ -12,6 +12,7 @@ import {
 import { Response } from 'express';
 import {
   ApiOkResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { QueryDTO } from './dto/query.dto';
@@ -22,6 +23,7 @@ export enum Order {
   DESC = 'DESC',
 }
 
+@ApiTags('users')
 @Controller('users')
 export class UserController {
   // eslint-disable-next-line no-empty-function

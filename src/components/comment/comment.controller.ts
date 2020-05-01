@@ -16,6 +16,7 @@ import {
 import { Response } from 'express';
 import {
   ApiResponse,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -23,6 +24,7 @@ import { CommentService } from './comment.service';
 import { CreateCommentDTO } from './dto/createComment.dto';
 import { UpdateCommentDTO } from './dto/updateComment.dto';
 
+@ApiTags('comments')
 @Controller('comments')
 export class CommentController {
   // eslint-disable-next-line no-useless-constructor
