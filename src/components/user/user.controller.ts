@@ -4,12 +4,11 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Query,
-  Res,
 } from '@nestjs/common';
-import { Response } from 'express';
 import {
   ApiOkResponse,
   ApiTags,
@@ -32,36 +31,42 @@ export class UserController {
   @ApiOkResponse({ description: 'List all users' })
   @Get('')
   async getUsersList(
-    @Query() query: QueryDTO,
-    @Res() res: Response
+    @Query() query: QueryDTO
   ) {
-    return this.userService.getUsersList(
+    const users = await this.userService.getUsersList(
       query.page,
       query.limit,
       query.search,
       query.sort,
       query.order
-    ).then((users) => res.status(200).json({
+    );
+
+    return {
       data: {
         ...users,
       },
       status: true,
-    }));
+    };
   }
 
   @Get('/:username')
   async getByUsername(
-    @Param('username') username,
-    @Res() res: Response
+    @Param('username') username
   ) {
-    return this.userService.getByUsername(
+    const user = await this.userService.getByUsername(
       username
-    ).then((user) => res.status(200).json({
+    );
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return {
       data: {
         ...user,
       },
       status: true,
-    }));
+    };
   }
 
   @Delete('/:id')
