@@ -20,6 +20,11 @@ async function bootstrap() {
     .setTitle('NestJS API / PostgreSQL / TypeORM')
     .setDescription('API description')
     .setVersion('1.0')
+    .addBearerAuth({
+      bearerFormat: 'Token',
+      scheme: 'bearer',
+      type: 'http',
+    }, 'access-token')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
