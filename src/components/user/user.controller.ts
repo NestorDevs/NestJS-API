@@ -16,7 +16,7 @@ import {
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { QueryDTO } from './dto/query.dto';
-import { UpdateDTO } from './dto/update.dto';
+import { UpdateUserDTO } from './dto/updateUser.dto';
 
 export enum Order {
   ASC = 'ASC',
@@ -71,7 +71,7 @@ export class UserController {
 
   @Patch('/:id')
   async updateUser(
-    @Body() body: UpdateDTO,
+    @Body() body: UpdateUserDTO,
     @Param('id') id
   ) {
     return this.userService.updateUser(
