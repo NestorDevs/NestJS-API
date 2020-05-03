@@ -2,17 +2,19 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from '../../../entities/User.entity';
+import { Article } from '../../../entities/Article.entity';
 
 export class CreateCommentDTO {
   @ApiProperty()
   @IsNotEmpty()
-  content!: string;
+  readonly content: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  author!: number | any;
+  readonly author: User;
 
   @ApiProperty()
   @IsNotEmpty()
-  article!: number | any;
+  readonly article: Article;
 }
