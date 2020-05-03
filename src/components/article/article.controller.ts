@@ -4,15 +4,14 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
   Query,
-  Res,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { Response } from 'express';
 import {
   ApiOkResponse,
   ApiTags,
@@ -32,36 +31,40 @@ export class ArticleController {
   @ApiOkResponse({ description: 'List all users' })
   @Get('')
   async getArticlesList(
-    @Query() query: ListDTO,
-    @Res() res: Response
+    @Query() query: ListDTO
   ) {
-    return this.articleService.getArticlesList(
+    const articles = await this.articleService.getArticlesList(
       query.page,
       query.limit,
       query.search,
       query.sort,
       query.order
-    ).then((articles) => res.status(200).json({
+    );
+
+    return {
       data: {
         ...articles,
       },
       status: true,
-    }));
+    };
   }
 
   @Get('/:id')
   async getById(
-    @Param('id') id,
-    @Res() res: Response
+    @Param('id') id
   ) {
-    return this.articleService.getById(
-      id
-    ).then((article) => res.status(200).json({
+    const article = await this.articleService.getById(id);
+
+    if (!article) {
+      throw new NotFoundException();
+    }
+
+    return {
       data: {
         ...article,
       },
       status: true,
-    }));
+    };
   }
 
   @Post()
