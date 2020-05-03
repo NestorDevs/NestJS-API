@@ -14,6 +14,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiOkResponse,
+  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -50,6 +51,12 @@ export class ArticleController {
   }
 
   @Get('/:id')
+  @ApiParam({
+    example: 1,
+    name: 'id',
+    required: true,
+    type: Number,
+  })
   async getById(
     @Param('id') id
   ) {
