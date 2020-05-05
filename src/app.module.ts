@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './components/auth/auth.module';
@@ -12,6 +13,9 @@ import { CommentModule } from './components/comment/comment.module';
     ArticleModule,
     AuthModule,
     CommentModule,
+    MulterModule.register({
+      dest: './files',
+    }),
     UserModule,
   ],
   providers: [AppService],
