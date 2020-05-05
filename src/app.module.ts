@@ -14,7 +14,7 @@ import { CommentModule } from './components/comment/comment.module';
     AuthModule,
     CommentModule,
     MulterModule.register({
-      dest: './files',
+      dest: './src/files',
     }),
     UserModule,
   ],

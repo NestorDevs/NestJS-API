@@ -22,5 +22,5 @@ export const editFileName = (
     .map(() => Math.round(Math.random() * 16).toString(16))
     .join('');
 
-  return callback(null, `${name[0]}-${random}${extension}`);
+  return callback(null, `${name[0]}-${random}.${extension}`);
 };

@@ -9,7 +9,9 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
 import {
@@ -18,10 +20,16 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 import { ArticleService } from './article.service';
 import { CreateDTO } from './dto/create.dto';
 import { ListDTO } from './dto/list.dto';
 import { UpdateDTO } from './dto/update.dto';
+import {
+  editFileName,
+  imageFilter,
+} from '../../utils/fileUpload.utils';
 
 @ApiTags('articles')
 @Controller('articles')
@@ -72,6 +80,23 @@ export class ArticleController {
       },
       status: true,
     };
+  }
+
+  @Post('/upload')
+  @UseInterceptors(FileInterceptor('image', {
+    fileFilter: imageFilter,
+    storage: diskStorage({
+      destination: './src/files',
+      filename: editFileName,
+    }),
+  }))
+  async uploadedFile(@UploadedFile() file) {
+    const response = {
+      filename: file.filename,
+      originalname: file.originalname,
+    };
+
+    return response;
   }
 
   @Post()
