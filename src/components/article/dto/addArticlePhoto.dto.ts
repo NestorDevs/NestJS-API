@@ -1,17 +1,15 @@
 import {
   IsNotEmpty,
 } from 'class-validator';
-import { Article } from 'src/entities/Article.entity';
-import { User } from 'src/entities/User.entity';
 
 export class AddArticlePhotoDTO {
   title!: string;
 
   @IsNotEmpty()
-  author!: User;
+  author!: number | any;
 
   @IsNotEmpty()
-  article!: Article;
+  article: number | any;
 
   @IsNotEmpty()
   filename!: string;
