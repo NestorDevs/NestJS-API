@@ -12,6 +12,8 @@ import { Article } from '../../entities/Article.entity';
 import { CreateDTO } from './dto/create.dto';
 import { ArticlesList } from './article.interface';
 import Helpers from '../../utils/helpers';
+import { Photo } from '../../entities/Photo.entity';
+import { AddArticlePhotoDTO } from './dto/addArticlePhoto.dto';
 
 export enum Order {
   ASC = 'ASC',
@@ -22,7 +24,8 @@ export enum Order {
 export class ArticleService {
   // eslint-disable-next-line no-useless-constructor
   constructor(
-    @InjectRepository(Article) private article:Repository<Article>
+    @InjectRepository(Article) private article:Repository<Article>,
+    @InjectRepository(Photo) private photo:Repository<Photo>
   ) {}
 
   getArticlesList = async (
@@ -153,4 +156,18 @@ export class ArticleService {
     })
     .where('id = :id', { id })
     .execute();
+
+  addArticlePhoto = async (
+    addArticlePhotoDto: AddArticlePhotoDTO
+  ): Promise<Photo> => {
+    try {
+      const photo = this.photo.create(addArticlePhotoDto);
+
+      await photo.save();
+
+      return photo;
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
 }
