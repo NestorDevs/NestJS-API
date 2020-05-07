@@ -18,7 +18,7 @@ before_script:
   - docker-compose up -d
 script:
   - ts-node ./node_modules/typeorm/cli.js migration:run
-  - npm start:prod
+  - nest build
 deploy:
   provider:
     pages
