@@ -20,9 +20,7 @@ script:
   - ts-node ./node_modules/typeorm/cli.js migration:run
   - npm run dev
 deploy:
-  provider:
-    pages
+  provider: heroku
   skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  on:
-    branch: master
+  app:
+    master: onloadapi
