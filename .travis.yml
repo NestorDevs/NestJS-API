@@ -4,6 +4,7 @@ node_js:
 cache:
   directories: [node_modules]
 services:
+  - docker
   - postgresql
 addons:
   postgresql: "10"
@@ -17,7 +18,7 @@ before_install:
 install:
   - npm ci
 before_script:
-  - psql -c 'create database nestjs_api;' -U postgres
+  - docker-compose up -d
 script:
   - ts-node ./node_modules/typeorm/cli.js migration:run
   - npm start
