@@ -18,8 +18,7 @@ before_script:
   - docker-compose up -d
 script:
   - ts-node ./node_modules/typeorm/cli.js migration:run
-  - npm run build
-  - npm run-script start:prod
+  - npm run dev
 deploy:
   provider:
     pages
