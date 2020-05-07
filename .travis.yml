@@ -12,7 +12,7 @@ install:
   - npm ci
 
 before_script:
-  - psql -c 'create database nest_js_api;' -U postgres
+  - psql -c 'create database postgres;' -U postgres
 
 script:
   - npm test
