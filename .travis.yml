@@ -1,0 +1,28 @@
+language:
+  node_js
+node_js:
+  - 14.2.0
+cache:
+  npm
+
+services:
+  - postgresql
+
+install:
+  - npm ci
+
+before_script:
+  - psql -c 'create database nest_js_api;' -U postgres
+
+script:
+  - npm test
+  - ts-node ./node_modules/typeorm/cli.js migration:run
+  - npm start
+
+deploy:
+  provider:
+    pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on:
+    branch: master
