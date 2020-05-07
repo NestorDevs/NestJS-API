@@ -15,7 +15,6 @@ before_script:
   - psql -c 'create database nestjs_api;' -U postgres
 
 script:
-  - npm test
   - ts-node ./node_modules/typeorm/cli.js migration:run
   - npm run dev
 
