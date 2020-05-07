@@ -18,12 +18,11 @@ before_script:
   - docker-compose up -d
 script:
   - ts-node ./node_modules/typeorm/cli.js migration:run
-  - nest build
+  - node dist/main
 deploy:
   provider:
     pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
-  local_dir: dist/main
   on:
     branch: master
