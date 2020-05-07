@@ -12,12 +12,12 @@ install:
   - npm ci
 
 before_script:
-  - psql -c 'create database postgres;' -U postgres
+  - psql -c 'create database nestjs_api;' -U postgres
 
 script:
   - npm test
   - ts-node ./node_modules/typeorm/cli.js migration:run
-  - npm start
+  - npm run dev
 
 deploy:
   provider:
