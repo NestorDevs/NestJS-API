@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const {
   DB_DATABASE,
   DB_HOST,
@@ -6,7 +8,7 @@ const {
   DB_USERNAME,
 } = process.env;
 
-export = {
+module.exports = {
   database: DB_DATABASE,
   entities: ['src/entities/*.ts'],
   host: DB_HOST,
@@ -19,4 +21,4 @@ export = {
   synchronize: false,
   type: 'postgres',
   username: DB_USERNAME,
-}
+};
