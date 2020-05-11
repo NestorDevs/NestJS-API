@@ -13,14 +13,15 @@ addons:
     - postgresql-10
     - postgresql-client-10
 install:
-  - npm install
+  - npm ci
 before_script:
   - docker-compose up -d
 script:
   - yarn build
 deploy:
-  provider: heroku
-  api_key:
-  skip-cleanup: true
-  app:
-    master: onloadapi
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master
