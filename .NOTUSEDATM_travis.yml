@@ -20,7 +20,7 @@ script:
   - yarn build
 deploy:
   provider: heroku
-  api_key: "b823a626-4767-4634-9f8b-a3bb373d7e60"
+  api_key:
   skip-cleanup: true
   app:
     master: onloadapi
