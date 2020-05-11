@@ -12,11 +12,11 @@ addons:
     packages:
     - postgresql-10
     - postgresql-client-10
-install:
-  - npm ci
 before_script:
   - docker-compose up -d
 script:
+  - npm install
+  - yarn migration:run
   - yarn build
   - yarn start:prod
 deploy:
