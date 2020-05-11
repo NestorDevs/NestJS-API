@@ -17,7 +17,6 @@ install:
 before_script:
   - docker-compose up -d
 script:
-  - yarn migration:run
   - yarn build
   - yarn start:prod
 deploy:
