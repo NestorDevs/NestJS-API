@@ -4,7 +4,13 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest)JS API (PostgreSQL/TypeORM) playground. In progress.
+E-commerce [Nest](https://github.com/nestjs/nest)JS API (PostgreSQL/TypeORM) playground. In progress.
+
+## Database Structure
+
+In progress, current goal!
+
+![PostgreSQL Database Structure](https://restyled.pl/dev/db_structure.png)
 
 ## Installation
 
