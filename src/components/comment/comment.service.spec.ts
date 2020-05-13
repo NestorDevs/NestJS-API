@@ -9,7 +9,14 @@ describe('CommentService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CommentService],
+      providers: [
+        {
+          provide: CommentService,
+          useValue: {
+            getComments: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<CommentService>(CommentService);
