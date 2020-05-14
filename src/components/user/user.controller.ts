@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-constructor */
+/* eslint-disable no-empty-function */
 import {
   Body,
   Controller,
@@ -25,7 +25,6 @@ export enum Order {
 @ApiTags('users')
 @Controller('users')
 export class UserController {
-  // eslint-disable-next-line no-empty-function
   constructor(private userService: UserService) {}
 
   @ApiOkResponse({ description: 'List all users' })

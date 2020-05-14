@@ -27,7 +27,6 @@ import { UpdateCommentDTO } from './dto/updateComment.dto';
 @ApiTags('comments')
 @Controller('comments')
 export class CommentController {
-  // eslint-disable-next-line no-useless-constructor
   constructor(private commentService: CommentService) {}
 
   @UseGuards(AuthGuard('jwt'))

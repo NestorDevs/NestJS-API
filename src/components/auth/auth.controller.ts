@@ -15,7 +15,6 @@ import { LoginDTO } from './dto/login.dto';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  // eslint-disable-next-line no-useless-constructor
   constructor(private authService: AuthService) {}
 
   @Post('/register')

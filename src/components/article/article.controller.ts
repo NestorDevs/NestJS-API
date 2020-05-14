@@ -35,7 +35,6 @@ import { AddArticlePhotoDTO } from './dto/addArticlePhoto.dto';
 @ApiTags('articles')
 @Controller('articles')
 export class ArticleController {
-  // eslint-disable-next-line no-useless-constructor
   constructor(private articleService: ArticleService) {}
 
   @ApiOkResponse({ description: 'List all articles' })
