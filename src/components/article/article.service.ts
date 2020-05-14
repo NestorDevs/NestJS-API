@@ -9,7 +9,7 @@ import {
   Repository,
 } from 'typeorm';
 import { Article } from '../../entities/Article.entity';
-import { CreateDTO } from './dto/create.dto';
+import { AddArticleDTO } from './dto/addArticle.dto';
 import { ArticlesList } from './article.interface';
 import Helpers from '../../utils/helpers';
 import { Photo } from '../../entities/Photo.entity';
@@ -121,7 +121,7 @@ export class ArticleService {
     .getOne();
 
   create = async (
-    articleDto: CreateDTO
+    articleDto: AddArticleDTO
   ): Promise<Article> => {
     try {
       const article = this.article.create(articleDto);

@@ -2,7 +2,7 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-export class CreateDTO {
+export class AddArticleDTO {
   @IsNotEmpty()
   title!: string;
 

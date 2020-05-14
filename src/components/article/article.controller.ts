@@ -23,9 +23,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { ArticleService } from './article.service';
-import { CreateDTO } from './dto/create.dto';
+import { AddArticleDTO } from './dto/addArticle.dto';
 import { GetArticlesListOptionsDTO } from './dto/getArticlesListOptions.dto';
-import { UpdateDTO } from './dto/update.dto';
+import { UpdateArticleDTO } from './dto/updateArticle.dto';
 import {
   editFileName,
   imageFilter,
@@ -121,7 +121,7 @@ export class ArticleController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  create(@Body(ValidationPipe) articleDto: CreateDTO) {
+  create(@Body(ValidationPipe) articleDto: AddArticleDTO) {
     return this.articleService.create(articleDto);
   }
 
@@ -132,7 +132,7 @@ export class ArticleController {
 
   @Patch('/:id')
   async updateArticle(
-    @Body() body: UpdateDTO,
+    @Body() body: UpdateArticleDTO,
     @Param('id') id
   ) {
     return this.articleService.updateArticle(
