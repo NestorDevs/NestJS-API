@@ -1,20 +1,25 @@
 import {
-  IsOptional,
+  IsString,
 } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class GetArticlesListOptionsDTO {
-  @IsOptional()
+  @ApiPropertyOptional()
+  @IsString()
   page!: string;
 
-  @IsOptional()
+  @ApiPropertyOptional()
+  @IsString()
   limit!: string;
 
-  @IsOptional()
+  @ApiPropertyOptional()
+  @IsString()
   search: string;
 
-  @IsOptional()
+  @ApiPropertyOptional()
+  @IsString()
   sort: string;
 
-  @IsOptional()
+  @ApiPropertyOptional()
   order: string | any
 }
