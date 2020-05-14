@@ -2,19 +2,19 @@ import {
   IsOptional,
 } from 'class-validator';
 
-export class ListDTO {
+export class GetArticlesListOptionsDTO {
   @IsOptional()
-  page!: number;
+  page!: string;
 
   @IsOptional()
-  limit!: number;
+  limit!: string;
 
   @IsOptional()
   search: string;
 
   @IsOptional()
-  sort: any;
+  sort: string;
 
   @IsOptional()
-  order: any
+  order: string | any
 }

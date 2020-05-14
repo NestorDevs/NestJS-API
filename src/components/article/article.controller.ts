@@ -24,7 +24,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { ArticleService } from './article.service';
 import { CreateDTO } from './dto/create.dto';
-import { ListDTO } from './dto/list.dto';
+import { GetArticlesListOptionsDTO } from './dto/getArticlesListOptions.dto';
 import { UpdateDTO } from './dto/update.dto';
 import {
   editFileName,
@@ -41,14 +41,27 @@ export class ArticleController {
   @ApiOkResponse({ description: 'List all articles' })
   @Get('')
   async getArticlesList(
-    @Query() query: ListDTO
+    @Query() query: GetArticlesListOptionsDTO
   ) {
+    const {
+      order,
+      page,
+      limit: perPage,
+      search,
+      sort,
+    } = query;
+
+    const currentPage = parseFloat(page) || undefined;
+    const currentLimit = parseFloat(perPage) || undefined;
+    const orderParsed = order ? order.toUpperCase() : undefined;
+    const phrase = search ? search.toLowerCase() : '';
+
     const articles = await this.articleService.getArticlesList(
-      query.page,
-      query.limit,
-      query.search,
-      query.sort,
-      query.order
+      currentPage,
+      currentLimit,
+      phrase,
+      sort,
+      orderParsed
     );
 
     return {
